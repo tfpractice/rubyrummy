@@ -12,10 +12,10 @@ module RubyCards
 
     alias :add :<<
 
-    # Initializes a hand of cards
-    #
-    # @param cards [Array<Card>] A predetermined array of cards
-    # @return [Hand] The generated hand
+      # Initializes a hand of cards
+      #
+      # @param cards [Array<Card>] A predetermined array of cards
+      # @return [Hand] The generated hand
     def initialize(cards = [])
       @cards = []
       cards.each do |card|
