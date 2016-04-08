@@ -1,14 +1,10 @@
-# require 'spec_helper'
+require 'spec_helper'
 
 include RubyCards
 
-describe Deck do
-  subject(:deck) { Deck.new }
+describe RubyCards::Deck do
+  subject(:deck) { RubyCards::Deck.new }
 
-  it 'is has RubyCards::GenDeck as its superclass' do
-    expect(Deck.superclass).to eq(RubyCards::GenDeck)
-
-  end
   describe '#initialize' do
     it 'initializes 52 cards' do
       expect(deck.cards.count).to eq 52
@@ -132,9 +128,9 @@ describe Deck do
   end
 
   describe 'excluded cards' do
-    let (:deck_excluding_1) { Deck.new(exclude_rank: [5]) }
-    let (:deck_excluding_2) { Deck.new(exclude_rank: [5,7]) }
-    let (:deck_excluding_3) { Deck.new(exclude_rank: [5, 'Jack', 'Ace']) }
+    let (:deck_excluding_1) { RubyCards::Deck.new(exclude_rank: [5]) }
+    let (:deck_excluding_2) { RubyCards::Deck.new(exclude_rank: [5,7]) }
+    let (:deck_excluding_3) { RubyCards::Deck.new(exclude_rank: [5, 'Jack', 'Ace']) }
 
     describe '#initialize' do
       # Remove one card rank from deck
@@ -161,13 +157,13 @@ describe Deck do
   end
 
   context 'multiple_decks' do
-    let (:deck_2_decks) { Deck.new(number_decks: 2) }
+    let (:deck_2_decks) { RubyCards::Deck.new(number_decks: 2) }
     it('initializes 104 cards') { expect(deck_2_decks.cards.count).to eq 104 }
     it('unique of decks should be 52') {expect(deck_2_decks.cards.map(&:short).uniq.count).to eq 52}
   end
 
   context 'multiple_decks and excluded cards' do
-    let (:deck_2_decks_excluding_2) { Deck.new(number_decks: 2, exclude_rank: [5, 'Jack']) }
+    let (:deck_2_decks_excluding_2) { RubyCards::Deck.new(number_decks: 2, exclude_rank: [5, 'Jack']) }
     it('initializes 96 cards') { expect(deck_2_decks_excluding_2.cards.count).to eq 88 }
     it('unique of decks should be 48') {expect(deck_2_decks_excluding_2.cards.map(&:short).uniq.count).to eq 44}
   end
