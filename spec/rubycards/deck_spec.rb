@@ -1,10 +1,14 @@
-require 'spec_helper'
+# require 'spec_helper'
 
 include RubyCards
 
 describe Deck do
   subject(:deck) { Deck.new }
 
+  it 'is has RubyCards::GenDeck as its superclass' do
+    expect(Deck.superclass).to eq(RubyCards::GenDeck)
+
+  end
   describe '#initialize' do
     it 'initializes 52 cards' do
       expect(deck.cards.count).to eq 52
