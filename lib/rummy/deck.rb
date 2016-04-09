@@ -1,4 +1,5 @@
 require 'forwardable'
+require_relative 'card'
 
 module Rummy
   class Deck

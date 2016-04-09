@@ -1,14 +1,18 @@
-# require_relative 'hand'
+require_relative 'hand'
 
 module Rummy
   class Player
     extend Forwardable
 
-    attr_accessor :hand, :name
+    attr_accessor :hand, :name, :game
+
+    def_delegator :@hand, :draw, :draw
+
     def initialize(name: 'playerOne')
       @name = name
-      @hand = RubyCards::Hand.new
+      @hand = Hand.new
     end
+
 
   end
 end

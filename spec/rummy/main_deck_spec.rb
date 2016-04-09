@@ -3,10 +3,6 @@ require 'rummy/shared/deck'
 describe MainDeck do
   subject(:deck) { MainDeck.new }
 
-  # it 'is has RubyCards::GenMainDeck as its superclass' do
-  #   expect(MainDeck.superclass).to eq(RubyCards::GenMainDeck)
-
-  # end
 
   it_behaves_like 'a deck' do
     let(:deck) { MainDeck.new }
