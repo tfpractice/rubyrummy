@@ -4,6 +4,7 @@ source 'http://rubygems.org'
 gemspec
 gem 'colored'
 gem 'rake'
+gem 'pry', '~> 0.10.3'
 
 group :test do
   gem 'rspec', '~> 3.0'

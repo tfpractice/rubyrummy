@@ -12,8 +12,7 @@ class String
     zipped = self.split("\n").zip(str.split("\n"))
 
     # map the zipped strings, by joining each pair and ending
-    #   with a new line, then joining the whole thing together
+    # with a new line, then joining the whole thing together
     zipped.map { |e| "#{e.join}" }.join "\n"
   end
-
 end

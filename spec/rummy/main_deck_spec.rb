@@ -1,17 +1,24 @@
-require 'spec_helper'
+include Rummy
+require 'rummy/shared/deck'
+describe MainDeck do
+  subject(:deck) { MainDeck.new }
 
-include RubyCards
+  # it 'is has RubyCards::GenMainDeck as its superclass' do
+  #   expect(MainDeck.superclass).to eq(RubyCards::GenMainDeck)
 
-describe RubyCards::Deck do
-  subject(:deck) { RubyCards::Deck.new }
+  # end
+
+  it_behaves_like 'a deck' do
+    let(:deck) { MainDeck.new }
+  end
 
   describe '#initialize' do
     it 'initializes 52 cards' do
       expect(deck.cards.count).to eq 52
       # test indexing
-      expect(deck[0]).to be_a_kind_of RubyCards::Card
+      expect(deck[0]).to be_a Card
       # test enumerability
-      deck.each { |card| expect(card).to be_a_kind_of RubyCards::Card }
+      deck.each { |card| expect(card).to be_a Card }
     end
 
     it "initializes four suits" do
@@ -128,9 +135,9 @@ describe RubyCards::Deck do
   end
 
   describe 'excluded cards' do
-    let (:deck_excluding_1) { RubyCards::Deck.new(exclude_rank: [5]) }
-    let (:deck_excluding_2) { RubyCards::Deck.new(exclude_rank: [5,7]) }
-    let (:deck_excluding_3) { RubyCards::Deck.new(exclude_rank: [5, 'Jack', 'Ace']) }
+    let (:deck_excluding_1) { MainDeck.new(exclude_rank: [5]) }
+    let (:deck_excluding_2) { MainDeck.new(exclude_rank: [5,7]) }
+    let (:deck_excluding_3) { MainDeck.new(exclude_rank: [5, 'Jack', 'Ace']) }
 
     describe '#initialize' do
       # Remove one card rank from deck
@@ -157,13 +164,13 @@ describe RubyCards::Deck do
   end
 
   context 'multiple_decks' do
-    let (:deck_2_decks) { RubyCards::Deck.new(number_decks: 2) }
+    let (:deck_2_decks) { MainDeck.new(number_decks: 2) }
     it('initializes 104 cards') { expect(deck_2_decks.cards.count).to eq 104 }
     it('unique of decks should be 52') {expect(deck_2_decks.cards.map(&:short).uniq.count).to eq 52}
   end
 
   context 'multiple_decks and excluded cards' do
-    let (:deck_2_decks_excluding_2) { RubyCards::Deck.new(number_decks: 2, exclude_rank: [5, 'Jack']) }
+    let (:deck_2_decks_excluding_2) { MainDeck.new(number_decks: 2, exclude_rank: [5, 'Jack']) }
     it('initializes 96 cards') { expect(deck_2_decks_excluding_2.cards.count).to eq 88 }
     it('unique of decks should be 48') {expect(deck_2_decks_excluding_2.cards.map(&:short).uniq.count).to eq 44}
   end
