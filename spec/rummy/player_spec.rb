@@ -15,5 +15,8 @@ describe Player do
       end
     end
   end
+  it 'extends Forwardable' do
+    expect(Player.singleton_class.included_modules).to include(Forwardable)
+  end
 
 end

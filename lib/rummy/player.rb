@@ -2,6 +2,8 @@
 
 module Rummy
   class Player
+    extend Forwardable
+
     attr_accessor :hand, :name
     def initialize(name: 'playerOne')
       @name = name
