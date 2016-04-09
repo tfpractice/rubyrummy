@@ -10,3 +10,4 @@ end
 require 'rummy/card'
 require 'rummy/player'
 require 'rummy/main_deck'
+require 'rummy/discard_deck'

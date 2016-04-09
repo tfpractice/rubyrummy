@@ -27,7 +27,6 @@ module Rummy
     # @return [Deck] A standard deck of cards
     def initialize(options={})
       @cards = []
-
     end
 
 
