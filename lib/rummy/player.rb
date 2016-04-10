@@ -1,3 +1,4 @@
+require 'forwardable'
 require_relative 'hand'
 
 module Rummy
@@ -6,8 +7,8 @@ module Rummy
 
     attr_accessor :hand, :name, :game
 
-    def_delegator :hand, :draw, :draw
-    def_delegator :game, :discard_deck, :discard_deck
+    def_delegator :@hand, :draw, :draw
+    def_delegator :@game, :discard_deck, :discard_deck
 
     def initialize(name: 'playerOne')
       @name = name
@@ -15,7 +16,7 @@ module Rummy
     end
 
     def discard(card)
-      rejected_card =  hand.delete(card)
+      rejected_card =  hand.discard(card)
       discard_deck.add_to_discard(card)
     end
   end

@@ -42,5 +42,8 @@ describe Game do
       myGame.deal
       expect(p1.hand.size).to eq(7)
     end
+    it 'reduces @cards by 7*players.length' do
+      expect { myGame.deal }.to change{myGame.main_deck.cards.length}.by(-14)
+    end
   end
 end
