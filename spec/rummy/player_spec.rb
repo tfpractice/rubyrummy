@@ -14,10 +14,13 @@ describe Player do
         newPlayer = Player.new
         expect(newPlayer.name).to eq('playerOne')
       end
-      it 'retuns a player with an empty hand' do
-        newPlayer = Player.new
-        expect(newPlayer.hand).to be_a_kind_of(Hand)
-      end
+    end
+    it 'retuns a player with an empty hand' do
+      newPlayer = Player.new
+      expect(newPlayer.hand).to be_a_kind_of(Hand)
+    end
+    it 'has an empty #play_deck' do
+      expect(myPlayer.play_deck).to be_a_kind_of(PlayDeck)
     end
   end
   it 'extends Forwardable' do

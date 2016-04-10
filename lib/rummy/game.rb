@@ -1,6 +1,8 @@
 require_relative 'player'
 require_relative 'main_deck'
 require_relative 'discard_deck'
+require_relative 'play_deck'
+
 
 module Rummy
   class Game
@@ -20,13 +22,12 @@ module Rummy
 
     def deal
       main_deck.shuffle!
-      # players.product([0...7]).each { |p, c| puts "p:#{p}__c#{c}"  }
       7.times do |n|
         players.each { |p| p.draw(main_deck) }
       end
     end
     def switch_player
-      next_index =  ((players.index(current_player) + 1) % players.length)
+      next_index = ((players.index(current_player) + 1) % players.length)
       self.current_player = players[next_index]
     end
 
