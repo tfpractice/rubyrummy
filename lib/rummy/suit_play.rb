@@ -1,8 +1,8 @@
 module Rummy
   class SuitPlay < RubyCards::Hand
-    def initialize(args)
+    # def initialize(args)
 
-    end
+    # end
 
 
   end

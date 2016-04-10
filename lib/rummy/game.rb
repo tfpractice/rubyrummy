@@ -31,6 +31,10 @@ module Rummy
       self.current_player = players[next_index]
     end
 
+    def play_decks
+      players.collect { |p| p.play_deck }
+
+    end
     private
 
     def current_player=(player)

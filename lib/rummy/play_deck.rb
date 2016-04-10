@@ -4,7 +4,7 @@ module Rummy
   class PlayDeck < Deck
     def initialize(player)
       @player = player
-
+      super
     end
 
 

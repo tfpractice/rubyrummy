@@ -46,4 +46,10 @@ describe Game do
       expect { myGame.deal }.to change{myGame.main_deck.cards.length}.by(-14)
     end
   end
+  describe '#play_decks' do
+    it 'collects all of the players play decks' do
+      puts myGame.play_decks
+      expect(myGame.play_decks).to be_a_kind_of(Array)
+    end
+  end
 end
