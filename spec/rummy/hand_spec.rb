@@ -43,6 +43,30 @@ describe Hand do
         expect(myHand).not_to include(c1)
       end
     end
+    describe '#rank_triplets' do
+      it 'returns each of the triplets in hand' do
+        c0 = myHand[0]
+        puts myHand.rank_triplets()
+      end
+    end
+    describe '#rank_count' do
+      it 'returns the number of cards of each rank in hand' do
+        c0 = myHand[0]
+        puts myHand.rank_count
+      end
+    end
+    describe '#ranks' do
+      it 'returns an array of all the ranks in hand' do
+        puts myHand.ranks
+        expect(myHand.ranks).to be_a_kind_of(Array)
+      end
+    end
+    describe '#suits' do
+      it 'returns an array of all the suits in hand' do
+        puts myHand.suits
+        expect(myHand.suits).to be_a_kind_of(Array)
+      end
+    end
   end
 
   #
