@@ -25,6 +25,9 @@ module Rummy
       7.times do |n|
         players.each { |p| p.draw(main_deck) }
       end
+      dCard = main_deck.draw
+      puts dCard
+      discard_deck.add_to_discard(dCard)
     end
     def switch_player
       next_index = ((players.index(current_player) + 1) % players.length)
@@ -33,8 +36,8 @@ module Rummy
 
     def play_decks
       players.collect { |p| p.play_deck }
-
     end
+
     private
 
     def current_player=(player)

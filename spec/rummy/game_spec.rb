@@ -2,7 +2,7 @@ include Rummy
 describe Game do
   let(:p1) { Player.new(name: 'p1') }
   let(:p2) { Player.new(name: 'p2') }
-  let(:myGame) { Game.new(players: [p1, p2]) }
+  let!(:myGame) { Game.new(players: [p1, p2]) }
   let(:defGame) { Game.new }
   describe 'initialization' do
     context 'without params' do
@@ -42,14 +42,24 @@ describe Game do
       myGame.deal
       expect(p1.hand.size).to eq(7)
     end
-    it 'reduces @cards by 7*players.length' do
-      expect { myGame.deal }.to change{myGame.main_deck.cards.length}.by(-14)
+    it 'adds a single card to the discard_deck' do
+      myGame.deal
+      expect(myGame.discard_deck.length).to eq(1)
+    end
+    it 'reduces @cards by ((7*players.length)+1)' do
+      expect { myGame.deal }.to change{myGame.main_deck.cards.length}.by(-15)
     end
   end
   describe '#play_decks' do
     it 'collects all of the players play decks' do
       puts myGame.play_decks
       expect(myGame.play_decks).to be_a_kind_of(Array)
+    end
+  end
+  describe '#available_cards' do
+
+    it 'returns all cards in the discard_deck and play_decks' do
+
     end
   end
 end
