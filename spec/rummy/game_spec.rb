@@ -57,9 +57,12 @@ describe Game do
     end
   end
   describe '#available_cards' do
-
     it 'returns all cards in the discard_deck and play_decks' do
+      myGame.deal
+      puts myGame.available_cards
 
+      dis_card = myGame.discard_deck[0]
+      expect(myGame.available_cards).to include(dis_card)
     end
   end
 end

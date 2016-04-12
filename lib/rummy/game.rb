@@ -26,7 +26,6 @@ module Rummy
         players.each { |p| p.draw(main_deck) }
       end
       dCard = main_deck.draw
-      puts dCard
       discard_deck.add_to_discard(dCard)
     end
     def switch_player
@@ -35,9 +34,15 @@ module Rummy
     end
 
     def play_decks
-      players.collect { |p| p.play_deck }
+      players.collect { |p| p.play_deck.cards }
     end
-
+    def available_cards
+      avail =[play_decks, discard_deck.cards].flatten
+      # play_decks
+      # avail << play_decks
+      # avail + discard_deck
+      # avail
+    end
     private
 
     def current_player=(player)
