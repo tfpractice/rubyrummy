@@ -3,7 +3,6 @@ require_relative 'main_deck'
 require_relative 'discard_deck'
 require_relative 'play_deck'
 
-
 module Rummy
   class Game
     attr_reader :main_deck, :discard_deck, :players, :current_player

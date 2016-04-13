@@ -9,13 +9,18 @@ module Rummy
 
     attr_reader :cards
 
-    def_delegators :cards, :empty?, :[], :shift
+    def_delegators :cards, :empty?, :[], :shift, :length
 
     alias :draw :shift
 
     RANKS = [*2..10, 'Jack', 'Queen', 'King', 'Ace']
     SUITS = %w{ Clubs Diamonds Hearts Spades }
-
+    def self.ranks
+      self::RANKS
+    end
+    def self.suits
+      self::SUITS
+    end
     # Initializes a standard deck of 52 cards
     # options:
     #   :number_decks
