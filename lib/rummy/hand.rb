@@ -24,9 +24,7 @@ module Rummy
     end
 
     def rank_triplets(init_card = nil)
-      result = {}
-      ranks.each { |r| result[r] = select_by_rank(r) }
-      result.select { |k,v| v.length > 2 }
+      group_by_rank.select { |k,v| v.length > 1 }
     end
 
     def group_by_suit
