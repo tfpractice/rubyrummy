@@ -49,26 +49,26 @@ describe Hand do
         puts myHand.rank_triplets()
       end
     end
-    describe '#rank_count' do
-      it 'returns the number of cards of each rank in hand' do
-        c0 = myHand[0]
-        puts myHand.rank_count
+    describe '#group_by_rank' do
+      it 'returns the hash of arrays with ranks as keys' do
+        puts myHand.group_by_rank
+        expect(myHand.group_by_rank).to be_a_kind_of(Hash)
       end
     end
-    describe '#suit_groups' do
+    describe '#group_by_suit' do
       it 'returns a hash of all the available suits and asociated cards' do
-        puts myHand.suit_groups
+        puts myHand.group_by_suit
+        expect(myHand.group_by_suit).to be_a_kind_of(Hash)
+
       end
     end
     describe '#ranks' do
       it 'returns an array of all the ranks in hand' do
-        puts myHand.ranks
         expect(myHand.ranks).to be_a_kind_of(Array)
       end
     end
     describe '#suits' do
       it 'returns an array of all the suits in hand' do
-        puts myHand.suits
         expect(myHand.suits).to be_a_kind_of(Array)
       end
     end

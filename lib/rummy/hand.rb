@@ -21,11 +21,11 @@ module Rummy
     end
 
     def select_by_suit(suit)
-      cards.select { |c| c.suit == suit }
+      cards.select { |c| c.suit == suit }.sort_by { |c| c.rank_id }
     end
 
     def select_by_rank(rank)
-      cards.select { |c| c.rank == rank }
+      cards.select { |c| c.rank == rank }.sort_by { |c| c.rank_id }
     end
 
     def possible_rank_plays(init_card)
@@ -38,13 +38,13 @@ module Rummy
       result.select { |k,v| v.length > 2 }
       # result
     end
-    def suit_groups
+    def group_by_suit
       result = {}
       suits.each { |s| result[s] = select_by_suit(s) }
       result
     end
 
-    def rank_count
+    def group_by_rank
       result = {}
       ranks.each { |r| result[r] = select_by_rank(r) }
       result
