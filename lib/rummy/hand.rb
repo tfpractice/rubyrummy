@@ -27,6 +27,10 @@ module Rummy
       group_by_rank.select { |k, v| v.length > 2 }
     end
 
+    def suit_consecutives
+      newHash = group_by_suit.each_value.map { |g|  g.each_cons(2).select{ |x, y| y.rank == x.succ_rank } }
+    end
+
     def group_by_suit
       suits.each_with_object({}) { |s, h| h[s] = select_by_suit(s)  }
     end
