@@ -1,23 +1,22 @@
 module Rummy
   class Card < RubyCards::Card
-    # def initialize(args)
 
-    # end
-
-    def pred
-      pred_id = (rank_id - 1) %  ranks_length
-      pred_rank = Rummy::Deck::RANKS[pred_id]
+    def pred_rank
+      pred_id = (rank_id - 1) % ranks_length
+      Rummy::Deck.ranks[pred_id]
     end
 
-    def succ
+    def succ_rank
       succ_id = (rank_id + 1) % ranks_length
-      succ_rank = Rummy::Deck::RANKS[succ_id]
+      Rummy::Deck.ranks[succ_id]
     end
+
     def rank_id
-      Rummy::Deck::RANKS.index(rank)
+      Rummy::Deck::RANKS.index(@rank) || Rummy::Deck::RANKS.index(rank)
     end
+
     def ranks_length
-      Rummy::Deck::RANKS.length
+      Rummy::Deck.ranks.length
     end
   end
 end
