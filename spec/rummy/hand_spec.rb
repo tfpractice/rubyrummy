@@ -1,9 +1,7 @@
 include Rummy
-
 describe Hand do
   let(:myHand) { Hand.new }
   let(:specDeck) { MainDeck.new }
-
   it 'inherits from RubyCards::Hand' do
     expect(Hand.superclass).to eq(RubyCards::Hand)
   end
@@ -45,8 +43,8 @@ describe Hand do
     end
     describe '#rank_triplets' do
       it 'returns each of the triplets in hand' do
-        c0 = myHand[0]
         puts myHand.rank_triplets()
+        expect(myHand.rank_triplets).to be_a_kind_of(Hash)
       end
     end
     describe '#group_by_rank' do
@@ -59,7 +57,6 @@ describe Hand do
       it 'returns a hash of all the available suits and asociated cards' do
         puts myHand.group_by_suit
         expect(myHand.group_by_suit).to be_a_kind_of(Hash)
-
       end
     end
     describe '#ranks' do
@@ -73,7 +70,4 @@ describe Hand do
       end
     end
   end
-
-  #
-  # end
 end

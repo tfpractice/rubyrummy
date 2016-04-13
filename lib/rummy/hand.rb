@@ -23,8 +23,8 @@ module Rummy
     def possible_rank_plays(init_card)
     end
 
-    def rank_triplets(init_card = nil)
-      group_by_rank.select { |k,v| v.length > 1 }
+    def rank_triplets
+      group_by_rank.select { |k, v| v.length > 2 }
     end
 
     def group_by_suit
@@ -36,11 +36,11 @@ module Rummy
     end
 
     def ranks
-      each.map { |c| c.rank }.uniq
+      each.map(&:rank).uniq
     end
 
     def suits
-      each.map { |c| c.suit }.uniq
+      each.map(&:suit).uniq
     end
   end
 end
