@@ -72,7 +72,7 @@ describe Hand do
     describe '#suit_consecutives' do
       it 'returns any of the suit-groups that contain conseuctive cards' do
         p myHand.suit_consecutives
-        # expect(myHand.suit_consecutives).to be_a_kind_of(Array)
+        expect(myHand.suit_consecutives).to be_a_kind_of(Array)
       end
     end
   end
