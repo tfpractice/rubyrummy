@@ -55,6 +55,11 @@ describe Hand do
         puts myHand.rank_count
       end
     end
+    describe '#suit_groups' do
+      it 'returns a hash of all the available suits and asociated cards' do
+        puts myHand.suit_groups
+      end
+    end
     describe '#ranks' do
       it 'returns an array of all the ranks in hand' do
         puts myHand.ranks

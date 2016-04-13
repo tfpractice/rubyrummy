@@ -38,6 +38,11 @@ module Rummy
       result.select { |k,v| v.length > 2 }
       # result
     end
+    def suit_groups
+      result = {}
+      suits.each { |s| result[s] = select_by_suit(s) }
+      result
+    end
 
     def rank_count
       result = {}
