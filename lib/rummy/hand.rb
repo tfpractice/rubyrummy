@@ -13,11 +13,11 @@ module Rummy
     end
 
     def select_by_suit(suit)
-      cards.select { |c| c.suit == suit }.sort_by { |c| c.rank_id }
+      cards.select { |c| c.suit == suit }.sort_by(&:rank_id)
     end
 
     def select_by_rank(rank)
-      cards.select { |c| c.rank == rank }.sort_by { |c| c.rank_id }
+      cards.select { |c| c.rank == rank }.sort_by(&:rank_id)
     end
 
     def possible_rank_plays(init_card)
