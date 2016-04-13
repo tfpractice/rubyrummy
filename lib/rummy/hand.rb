@@ -1,17 +1,9 @@
 require_relative 'card'
-
 module Rummy
   class Hand < RubyCards::Hand
+
     def_delegators :cards, :size
-    # def initialize(args)
-    #
-    # end
-    #def discard(deck, card)
-    #  n.times do
-    #    @cards << deck.draw unless deck.empty?
-    #  end
-    #  # self
-    #end
+
     def discard(card)
       rejected_card = cards.delete(card)
     end
@@ -29,29 +21,26 @@ module Rummy
     end
 
     def possible_rank_plays(init_card)
-      # select_by_rank(init_card.rank) if
     end
 
     def rank_triplets(init_card = nil)
       result = {}
       ranks.each { |r| result[r] = select_by_rank(r) }
       result.select { |k,v| v.length > 2 }
-      # result
     end
+
     def group_by_suit
-      result = {}
-      suits.each { |s| result[s] = select_by_suit(s) }
-      result
+      suits.each_with_object({}) { |s, h| h[s] = select_by_suit(s)  }
     end
 
     def group_by_rank
-      result = {}
-      ranks.each { |r| result[r] = select_by_rank(r) }
-      result
+      ranks.each_with_object({}) { |r, h| h[r] = select_by_rank(r)  }
     end
+
     def ranks
       each.map { |c| c.rank }.uniq
     end
+
     def suits
       each.map { |c| c.suit }.uniq
     end
