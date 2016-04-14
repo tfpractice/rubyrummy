@@ -28,7 +28,11 @@ module Rummy
     end
 
     def suit_consecutives
-      newHash = group_by_suit.each_value.map { |g|  g.each_cons(2).select{ |x, y| y.rank == x.succ_rank } }
+      group_by_suit.inject({}) { |h, (k,v)| h[k] = v.each_cons(2).select{ |x, y| y.rank.to_s == x.succ_rank.to_s } ; puts h; h }
+    end
+
+    def get_neighbors(card)
+      suit_consecutives[card.suit.to_s]
     end
 
     def group_by_suit

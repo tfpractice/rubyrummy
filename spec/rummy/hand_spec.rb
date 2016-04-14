@@ -72,7 +72,34 @@ describe Hand do
     describe '#suit_consecutives' do
       it 'returns any of the suit-groups that contain conseuctive cards' do
         p myHand.suit_consecutives
-        expect(myHand.suit_consecutives).to be_a_kind_of(Array)
+        expect(myHand.suit_consecutives).to be_a_kind_of(Hash)
+      end
+    end
+    describe '#get_neighbors' do
+      context 'when hand holds three sequential cards of a suit' do
+        before(:each) do
+          @s_a = Card.new('Ace', 'Spades')
+          @s_2 = Card.new(2, 'Spades')
+          @s_3 = Card.new(3, 'Spades')
+          myHand.cards.push(@s_3)
+          myHand.cards.push(@s_a)
+          myHand.cards.push(@s_2)
+        end
+        it 'contains a 2 of spades' do
+          expect(myHand.cards).to include(@s_2)
+        end
+        it 'contains a Ace of spades' do
+          expect(myHand.cards).to include(@s_a)
+        end
+        it 'contains a 3 of spades' do
+          expect(myHand.cards).to include(@s_3)
+        end
+        it 'returns the arguments immediate neighboring cards in hand' do
+          # c0 = myHand.cards[0]
+          # puts @s_2
+          p myHand.get_neighbors(@s_2).class
+          expect(myHand.get_neighbors(@s_2)).to be_a_kind_of(Array)
+        end
       end
     end
   end
