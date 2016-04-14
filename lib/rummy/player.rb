@@ -26,6 +26,7 @@ module Rummy
 
     def add_to_prep_stack(card)
       prep_stack.push(card)
+      prep_stack.sort_by(&:rank_id)
     end
   end
 end

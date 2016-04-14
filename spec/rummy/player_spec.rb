@@ -1,5 +1,4 @@
 # require 'spec_helper'
-
 include Rummy
 describe Player do
   let(:myPlayer) { Player.new(name: 'tfpractice') }
@@ -7,7 +6,6 @@ describe Player do
   let!(:myGame) { Game.new(players: [myPlayer, opponent]) }
   let(:myDeck) { MainDeck.new }
   let(:defGame) { Game.new }
-
   describe '#initialize' do
     context 'with no params' do
       it 'returns player with @name set to playerOne' do
@@ -22,15 +20,16 @@ describe Player do
     it 'has an empty #play_deck' do
       expect(myPlayer.play_deck).to be_a_kind_of(PlayDeck)
     end
+    it 'includes :@game in its instance_variables' do
+      expect(myPlayer.instance_variables).to include(:@game)
+    end
+    it 'includes :@prep_stack in its instance_variables' do
+      expect(myPlayer.instance_variables).to include(:@prep_stack)
+    end
   end
   it 'extends Forwardable' do
     expect(Player.singleton_class.included_modules).to include(Forwardable)
   end
-  it 'includes :@game in its instance_variables' do
-    expect(myPlayer.instance_variables).to include(:@game)
-  end
-
-
   describe '#draw' do
     context 'before called' do
       describe "#hand" do
@@ -42,7 +41,7 @@ describe Player do
     context 'after called' do
       describe '#hand' do
         it 'contains 1 card' do
-          expect { myPlayer.draw(myDeck, 1) }.to change{myPlayer.hand.cards.length}.by(1)
+          expect { myPlayer.draw(myDeck, 1) }.to change { myPlayer.hand.cards.length }.by(1)
         end
       end
     end
@@ -72,10 +71,12 @@ describe Player do
         r0 = myPlayer.hand[0].rank
         expect(myPlayer.select_card(r0, s0)).to eq(myPlayer.hand[0])
       end
-
     end
-    # it 'reduces players hand by 1' do
-    #
-    # end
+    describe '#add_to_prep_stack' do
+      it 'adds the selected card to the prep_stack' do
+        c0 = myPlayer.hand[0]
+        expect { myPlayer.add_to_prep_stack(c0) }.to change { myPlayer.prep_stack.length }.by(1)
+      end
+    end
   end
 end
