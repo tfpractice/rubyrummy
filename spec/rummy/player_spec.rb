@@ -66,6 +66,14 @@ describe Player do
         expect(myPlayer.discard_deck).to include(c2)
       end
     end
+    describe '#select_card' do
+      it 'selects a card from the hand based on suit and rank' do
+        s0 = myPlayer.hand[0].suit
+        r0 = myPlayer.hand[0].rank
+        expect(myPlayer.select_card(r0, s0)).to eq(myPlayer.hand[0])
+      end
+
+    end
     # it 'reduces players hand by 1' do
     #
     # end

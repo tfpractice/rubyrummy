@@ -2,7 +2,7 @@ require_relative 'card'
 module Rummy
   class Hand < RubyCards::Hand
 
-    def_delegators :cards, :size
+    def_delegators :cards, :size, :[]
 
     def discard(card)
       rejected_card = cards.delete(card)
