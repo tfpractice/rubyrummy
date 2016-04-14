@@ -46,36 +46,38 @@ describe Player do
       end
     end
   end
-  describe '#discard' do
-    before(:each) do
-      myPlayer.draw(myDeck, 10)
-    end
-    describe '@hand' do
-      it 'removes the specified card from hand' do
-        c2 = myPlayer.hand[2]
-        puts myPlayer.game
-        myPlayer.discard(c2)
-        expect(myPlayer.hand).not_to include(c2)
+  describe '@hand' do
+    context 'with cards' do
+      before(:each) do
+        myPlayer.draw(myDeck, 10)
       end
-    end
-    describe 'discard_deck' do
-      it 'adds the specified card to discard_deck' do
-        c2 = myPlayer.hand[2]
-        myPlayer.discard(c2)
-        expect(myPlayer.discard_deck).to include(c2)
+      describe '#discard' do
+        it 'removes the specified card from hand' do
+          c2 = myPlayer.hand[2]
+          puts myPlayer.game
+          myPlayer.discard(c2)
+          expect(myPlayer.hand).not_to include(c2)
+        end
       end
-    end
-    describe '#select_card' do
-      it 'selects a card from the hand based on suit and rank' do
-        s0 = myPlayer.hand[0].suit
-        r0 = myPlayer.hand[0].rank
-        expect(myPlayer.select_card(r0, s0)).to eq(myPlayer.hand[0])
+      describe 'discard_deck' do
+        it 'adds the specified card to discard_deck' do
+          c2 = myPlayer.hand[2]
+          myPlayer.discard(c2)
+          expect(myPlayer.discard_deck).to include(c2)
+        end
       end
-    end
-    describe '#add_to_prep_stack' do
-      it 'adds the selected card to the prep_stack' do
-        c0 = myPlayer.hand[0]
-        expect { myPlayer.add_to_prep_stack(c0) }.to change { myPlayer.prep_stack.length }.by(1)
+      describe '#select_card' do
+        it 'selects a card from the hand based on suit and rank' do
+          s0 = myPlayer.hand[0].suit
+          r0 = myPlayer.hand[0].rank
+          expect(myPlayer.select_card(r0, s0)).to eq(myPlayer.hand[0])
+        end
+      end
+      describe '#add_to_prep_stack' do
+        it 'adds the selected card to the prep_stack' do
+          c0 = myPlayer.hand[0]
+          expect { myPlayer.add_to_prep_stack(c0) }.to change { myPlayer.prep_stack.length }.by(1)
+        end
       end
     end
   end
