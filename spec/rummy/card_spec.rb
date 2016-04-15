@@ -19,7 +19,12 @@ describe Card do
   end
   describe '#succ_rank' do
     it 'returns the succ_rankessive rank' do
-      expect(myCard.succ_rank).to eq(2)
+      expect(myCard.succ_rank).to eq('2')
+    end
+  end
+  describe '#neighbors?' do
+    it 'checks if two cards are of neighboring ranks' do
+      expect(myCard.neighbors?(my2S)).to eq(true)
     end
   end
 
