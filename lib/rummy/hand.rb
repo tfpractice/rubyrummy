@@ -1,7 +1,6 @@
 require_relative 'card'
 module Rummy
   class Hand < RubyCards::Hand
-
     def_delegators :cards, :size, :[]
 
     def discard(card)
@@ -41,18 +40,23 @@ module Rummy
 
     def suit_consecutives
       group_by_suit.each_with_object({}) do |(k, v), h|
-        h[k] = v.select { |c| pred_rank?(c) || next_rank?(c) }.uniq
+        h[k] = v.select { |c| pred_rank?(c) || next_rank?(c) }.uniq(&:rank)
       end
     end
 
     def get_neighbors(card)
-      cons = suit_consecutives[card.suit]
-      r_array =[]
-      n_array = cons.select { |n| card.neighbors?(n) }
-      r_array << n_array
-      n_array.each { |n| r_array << cons.select { |n1| n.neighbors?(n1) } }
-      p r_array.flatten.uniq(&:rank)
-      r_array.flatten.uniq(&:rank).sort
+      r_array = [card]
+      n_array = immediate_neighbors(card)
+      n_array.each_with_object(r_array) do |n, r|
+        r_array << n unless r_array.include?(n)
+        unaccounted_cards = immediate_neighbors(n).select { |c| !r_array.flatten.include?(c) }
+        unaccounted_cards.each { |e| n_array << e  } unless unaccounted_cards.empty?
+      end
+      r_array.sort
+    end
+
+    def immediate_neighbors(card)
+      suit_consecutives[card.suit].select { |n| card.neighbors?(n) }
     end
 
     def group_by_suit

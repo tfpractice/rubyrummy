@@ -13,7 +13,7 @@ describe Hand do
   context 'when hand has cards' do
     before(:each) do
       specDeck.shuffle!
-      myHand.draw(specDeck, 10)
+      myHand.draw(specDeck, 3)
     end
     describe '#select_card' do
       it 'returns the card specified by rank and suit' do
@@ -43,19 +43,16 @@ describe Hand do
     end
     describe '#rank_triplets' do
       it 'returns each of the triplets in hand' do
-        puts myHand.rank_triplets()
         expect(myHand.rank_triplets).to be_a_kind_of(Hash)
       end
     end
     describe '#group_by_rank' do
       it 'returns the hash of arrays with ranks as keys' do
-        puts myHand.group_by_rank
         expect(myHand.group_by_rank).to be_a_kind_of(Hash)
       end
     end
     describe '#group_by_suit' do
       it 'returns a hash of all the available suits and asociated cards' do
-        puts myHand.group_by_suit
         expect(myHand.group_by_suit).to be_a_kind_of(Hash)
       end
     end
@@ -71,45 +68,41 @@ describe Hand do
     end
     describe '#suit_consecutives' do
       it 'returns a hash of the consecutive cards by suit' do
-        p myHand.suit_consecutives
         expect(myHand.suit_consecutives).to be_a_kind_of(Hash)
       end
     end
-    describe '#get_neighbors' do
-      context 'when hand holds three sequential cards of a suit' do
-        before(:each) do
-          @s_a = Card.new('Ace', 'Spades')
-          @s_2 = Card.new(2, 'Spades')
-          @s_3 = Card.new(3, 'Spades')
-          myHand.cards.push(@s_3, @s_a, @s_2)
+  end
+  describe '#get_neighbors' do
+    context 'when hand holds three sequential cards of a suit' do
+      before(:each) do
+        @s_a = Card.new('Ace', 'Spades')
+        @s_2 = Card.new(2, 'Spades')
+        @s_3 = Card.new(3, 'Spades')
+        @s_4 = Card.new(4, 'Spades')
+        @s_5 = Card.new(5, 'Spades')
+        @s_6 = Card.new(6, 'Spades')
+        @s_7 = Card.new(7, 'Spades')
+        myHand.cards.push(@s_a , @s_2 , @s_3 , @s_4 , @s_5 , @s_6 , @s_7)
+      end
+      it 'contains the Ace, 2, and 3 of spades' do
+        expect(myHand.cards).to include(@s_3, @s_a, @s_2)
+      end
+      it 'returns an array of the arguments immediate neighboring cards in hand' do
+        expect(myHand.get_neighbors(@s_2)).to include(@s_a)
+      end
+      describe '#suit_ranks' do
+        it 'returns the rank of each card belonging to the suit param' do
+          expect(myHand.suit_ranks('Spades')).to include('Ace')
         end
-        it 'contains the Ace, 2, and 3 of spades' do
-          expect(myHand.cards).to include(@s_3, @s_a, @s_2)
+      end
+      describe '#pred_rank?' do
+        it 'checks for presence the card params rank predecessor' do
+          expect(myHand.pred_rank?(@s_2)).to eq(true)
         end
-        it 'returns an array of the arguments immediate neighboring cards in hand' do
-          s_4 = Card.new(4, 'Spades')
-          myHand.cards.push(s_4)
-          p myHand.get_neighbors(@s_2)
-          p myHand.suit_consecutives
-
-          expect(myHand.get_neighbors(@s_2)).to include(@s_a)
-        end
-        describe '#suit_ranks' do
-          it 'returns the rank of each card belonging to the suit param' do
-            p myHand.suit_ranks('Spades')
-            expect(myHand.suit_ranks('Spades')).to include('Ace')
-          end
-        end
-        describe '#pred_rank?' do
-          it 'checks for presence the card params rank predecessor' do
-            expect(myHand.pred_rank?(@s_2)).to eq(true)
-          end
-        end
-        describe '#next_rank?' do
-          it 'checks for presence the card params rank successor' do
-            expect(myHand.next_rank?(@s_2)).to eq(true)
-          end
-
+      end
+      describe '#next_rank?' do
+        it 'checks for presence the card params rank successor' do
+          expect(myHand.next_rank?(@s_2)).to eq(true)
         end
       end
     end
