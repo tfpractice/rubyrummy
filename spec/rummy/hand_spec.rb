@@ -87,7 +87,11 @@ describe Hand do
           expect(myHand.cards).to include(@s_3, @s_a, @s_2)
         end
         it 'returns an array of the arguments immediate neighboring cards in hand' do
+          s_4 = Card.new(4, 'Spades')
+          myHand.cards.push(s_4)
           p myHand.get_neighbors(@s_2)
+          p myHand.suit_consecutives
+
           expect(myHand.get_neighbors(@s_2)).to include(@s_a)
         end
         describe '#suit_ranks' do

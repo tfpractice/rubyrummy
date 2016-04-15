@@ -41,19 +41,18 @@ module Rummy
 
     def suit_consecutives
       group_by_suit.each_with_object({}) do |(k, v), h|
-        h[k] = v.select { |c| pred_rank?(c) || next_rank?(c) }
+        h[k] = v.select { |c| pred_rank?(c) || next_rank?(c) }.uniq
       end
     end
 
-    def sandbox
-      group_by_suit.each_with_object({}) do |(k, v), h|
-        h[k] = []
-        v.to_set.divide { |x, y| x.neighbors?(y)  }
-        h[k] << v.select { |c| pred_rank?(c) || next_rank?(c) }
-      end
-    end
     def get_neighbors(card)
-      suit_consecutives[card.suit].select { |n| card.neighbors?(n) }
+      cons = suit_consecutives[card.suit]
+      r_array =[]
+      n_array = cons.select { |n| card.neighbors?(n) }
+      r_array << n_array
+      n_array.each { |n| r_array << cons.select { |n1| n.neighbors?(n1) } }
+      p r_array.flatten.uniq(&:rank)
+      r_array.flatten.uniq(&:rank).sort
     end
 
     def group_by_suit
