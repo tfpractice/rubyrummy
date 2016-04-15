@@ -70,7 +70,7 @@ describe Hand do
       end
     end
     describe '#suit_consecutives' do
-      it 'returns any of the suit-groups that contain conseuctive cards' do
+      it 'returns a hash of the consecutive cards by suit' do
         p myHand.suit_consecutives
         expect(myHand.suit_consecutives).to be_a_kind_of(Hash)
       end
@@ -81,24 +81,31 @@ describe Hand do
           @s_a = Card.new('Ace', 'Spades')
           @s_2 = Card.new(2, 'Spades')
           @s_3 = Card.new(3, 'Spades')
-          myHand.cards.push(@s_3)
-          myHand.cards.push(@s_a)
-          myHand.cards.push(@s_2)
+          myHand.cards.push(@s_3, @s_a, @s_2)
         end
-        it 'contains a 2 of spades' do
-          expect(myHand.cards).to include(@s_2)
+        it 'contains the Ace, 2, and 3 of spades' do
+          expect(myHand.cards).to include(@s_3, @s_a, @s_2)
         end
-        it 'contains a Ace of spades' do
-          expect(myHand.cards).to include(@s_a)
+        it 'returns an array of the arguments immediate neighboring cards in hand' do
+          p myHand.get_neighbors(@s_2)
+          expect(myHand.get_neighbors(@s_2)).to include(@s_a)
         end
-        it 'contains a 3 of spades' do
-          expect(myHand.cards).to include(@s_3)
+        describe '#suit_ranks' do
+          it 'returns the rank of each card belonging to the suit param' do
+            p myHand.suit_ranks('Spades')
+            expect(myHand.suit_ranks('Spades')).to include('Ace')
+          end
         end
-        it 'returns the arguments immediate neighboring cards in hand' do
-          # c0 = myHand.cards[0]
-          # puts @s_2
-          p myHand.get_neighbors(@s_2).class
-          expect(myHand.get_neighbors(@s_2)).to be_a_kind_of(Array)
+        describe '#pred_rank?' do
+          it 'checks for presence the card params rank predecessor' do
+            expect(myHand.pred_rank?(@s_2)).to eq(true)
+          end
+        end
+        describe '#next_rank?' do
+          it 'checks for presence the card params rank successor' do
+            expect(myHand.next_rank?(@s_2)).to eq(true)
+          end
+
         end
       end
     end

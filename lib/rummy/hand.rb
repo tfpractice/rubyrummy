@@ -27,12 +27,33 @@ module Rummy
       group_by_rank.select { |k, v| v.length > 2 }
     end
 
-    def suit_consecutives
-      group_by_suit.inject({}) { |h, (k,v)| h[k] = v.each_cons(2).select{ |x, y| y.rank.to_s == x.succ_rank.to_s } ; puts h; h }
+    def pred_rank?(card)
+      suit_ranks(card.suit).include?(card.pred_rank)
     end
 
+    def next_rank?(card)
+      suit_ranks(card.suit).include?(card.succ_rank)
+    end
+
+    def suit_ranks(suit)
+      select_by_suit(suit).map(&:rank)
+    end
+
+    def suit_consecutives
+      group_by_suit.each_with_object({}) do |(k, v), h|
+        h[k] = v.select { |c| pred_rank?(c) || next_rank?(c) }
+      end
+    end
+
+    def sandbox
+      group_by_suit.each_with_object({}) do |(k, v), h|
+        h[k] = []
+        v.to_set.divide { |x, y| x.neighbors?(y)  }
+        h[k] << v.select { |c| pred_rank?(c) || next_rank?(c) }
+      end
+    end
     def get_neighbors(card)
-      suit_consecutives[card.suit.to_s]
+      suit_consecutives[card.suit].select { |n| card.neighbors?(n) }
     end
 
     def group_by_suit
