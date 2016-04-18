@@ -33,15 +33,26 @@ module Rummy
     end
 
     def play_decks
-      players.collect { |p| p.play_deck.cards }
+      # players.collect { |p| p.play_deck.cards }
+      players.map(&:play_deck)
     end
+
+    def available_plays
+      play_decks.map(&:plays)
+    end
+
+    def suit_plays
+      available_plays.select { |p| p.class == "SuitPlay" }
+    end
+
+    def rank_plays
+      available_plays.select { |p| p.class == "RankPlay" }
+    end
+
     def available_cards
-      avail =[play_decks, discard_deck.cards].flatten
-      # play_decks
-      # avail << play_decks
-      # avail + discard_deck
-      # avail
+      avail = [discard_deck.cards, current_player.hand.cards].flatten
     end
+
     private
 
     def current_player=(player)
