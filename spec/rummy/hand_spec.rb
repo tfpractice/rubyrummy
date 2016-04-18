@@ -108,6 +108,13 @@ describe Hand do
           expect(myHand.next_rank?(@s_2)).to eq(true)
         end
       end
+
+      describe 'assemble_suit_play' do
+        it 'gathers the  specified neighbors given based on startCard' do
+          puts myHand.assemble_suit_play(@s_4, 3)
+          expect(myHand.assemble_suit_play(@s_3, 3)).to be_a_kind_of(Array)
+        end
+      end
     end
   end
 end
