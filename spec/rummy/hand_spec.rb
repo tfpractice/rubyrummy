@@ -75,17 +75,20 @@ describe Hand do
   describe '#get_neighbors' do
     context 'when hand holds three sequential cards of a suit' do
       before(:each) do
-        @s_a = Card.new('Ace', 'Spades')
-        @s_2 = Card.new(2, 'Spades')
-        @s_3 = Card.new(3, 'Spades')
-        @s_4 = Card.new(4, 'Spades')
-        @s_5 = Card.new(5, 'Spades')
-        @s_6 = Card.new(6, 'Spades')
-        @s_7 = Card.new(7, 'Spades')
-        myHand.cards.push(@s_a , @s_2 , @s_3 , @s_4 , @s_5 , @s_6 , @s_7)
+        spades = specDeck.cards.select { |c| c.suit == "Spades" }
+        seqCards = spades.select { |c| c.to_i < 8 || c.rank == 'Ace' }
+        seqCards.each { |c| myHand.add(specDeck.cards.delete(c)) }
+        @s_a = myHand.select_card('Ace', 'Spades')
+        @s_2 = myHand.select_card('2', 'Spades')
+        @s_3 = myHand.select_card('3', 'Spades')
+        @s_4 = myHand.select_card('4', 'Spades')
+        @s_5 = myHand.select_card('5', 'Spades')
+        @s_6 = myHand.select_card('6', 'Spades')
+        @s_7 = myHand.select_card('7', 'Spades')
       end
-      it 'contains the Ace, 2, and 3 of spades' do
-        expect(myHand.cards).to include(@s_3, @s_a, @s_2)
+      it 'contains the Ace, 2..7 of spades' do
+        spades = myHand.cards.map(&:rank)
+        expect(spades).to include('2'..'7')
       end
       it 'returns an array of the arguments immediate neighboring cards in hand' do
         expect(myHand.get_neighbors(@s_2)).to include(@s_a)
