@@ -60,6 +60,7 @@ module Rummy
       s_index = n_array.index(startCard)
       n_array.slice(s_index, length)
     end
+
     def immediate_neighbors(card)
       suit_consecutives[card.suit].select { |n| card.neighbors?(n) }
     end
