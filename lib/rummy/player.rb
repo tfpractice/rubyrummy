@@ -28,5 +28,14 @@ module Rummy
       prep_stack.push(card)
       prep_stack.sort_by(&:rank_id)
     end
+    def make_suit_play(cards = [])
+      play_deck.add_play(SuitPlay.new(cards))
+      # new_play = SuitPlay.new(cards)
+
+    end
+
+    # def sequence_check
+
+    # end
   end
 end

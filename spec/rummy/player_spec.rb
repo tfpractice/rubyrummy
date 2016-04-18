@@ -54,7 +54,6 @@ describe Player do
       describe '#discard' do
         it 'removes the specified card from hand' do
           c2 = myPlayer.hand[2]
-          puts myPlayer.game
           myPlayer.discard(c2)
           expect(myPlayer.hand).not_to include(c2)
         end
@@ -77,6 +76,34 @@ describe Player do
         it 'adds the selected card to the prep_stack' do
           c0 = myPlayer.hand[0]
           expect { myPlayer.add_to_prep_stack(c0) }.to change { myPlayer.prep_stack.length }.by(1)
+        end
+      end
+      describe '#sequence_check' do
+        it 'returns the number of neigbors in the prep_stack' do
+
+        end
+      end
+    end
+    context 'with sequential cards' do
+      before(:each) do
+        spades = myGame.main_deck.cards.select { |c| c.suit == "Spades" }
+        seqCards = spades.select { |c| c.to_i < 8 || c.rank == 'Ace' }
+        seqCards.each { |c| myPlayer.hand.add(myGame.main_deck.cards.delete(c)) }
+        @s_a = myPlayer.hand.select_card('Ace', 'Spades')
+        @s_2 = myPlayer.hand.select_card('2', 'Spades')
+        @s_3 = myPlayer.hand.select_card('3', 'Spades')
+        @s_4 = myPlayer.hand.select_card('4', 'Spades')
+        @s_5 = myPlayer.hand.select_card('5', 'Spades')
+        @s_6 = myPlayer.hand.select_card('6', 'Spades')
+        @s_7 = myPlayer.hand.select_card('7', 'Spades')
+      end
+      describe 'make suit play' do
+        it 'adds a new play to the play_deck made of selected cards' do
+          my_234 = myPlayer.hand.assemble_suit_play(@s_2, 3)
+          puts my_234
+          # myPlayer.make_suit_play(my_234)
+          # puts myGame.available_cards
+          expect { myPlayer.make_suit_play(my_234) }.to change{myPlayer.play_deck.plays.length}.by(1)
         end
       end
     end
